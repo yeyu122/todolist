@@ -74,7 +74,7 @@ import TodoHeader from './components/Myheader.vue'
                     localStorage.setItem("todos",JSON.stringify(value));
                 }
             }
-        }
+        },
     }
 // import HelloWorld from './components/HelloWorld.vue'
 // import propS from './components/pro_ps.vue'
