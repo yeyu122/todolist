@@ -6,6 +6,7 @@ Vue.config.productionTip = false
 new Vue({
         el: "#app",
         render: h => h(App),
+
         // render(createElement) {
         //     render createElement('h1', "渲染这是内容")
         // },

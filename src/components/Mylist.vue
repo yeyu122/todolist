@@ -1,6 +1,9 @@
 <template>
 <ul class="todo-main">
-    <TodoItem v-for="(item) in todos" :key="item.id" :todo="item" :checktodo='checktodo' :deleteTodo='deleteTodo'/>
+    <transition-group appear name="todo" >
+        <TodoItem v-for="(item) in todos" :key="item.id" :todo="item" :checktodo='checktodo' :deleteTodo='deleteTodo' :updatatodo="updatatodo"/>
+    </transition-group>
+    
 </ul>
 </template>
 
@@ -12,7 +15,7 @@
         components:{
         TodoItem
         },
-        props:['todos','checktodo','deleteTodo']
+        props:['todos','checktodo','deleteTodo','updatatodo']
     }
 </script>
 <style scoped>  
@@ -32,4 +35,19 @@
     padding-left: 5px;
     margin-top: 10px;
     }    
+    .todo-enter-active {
+    animation: yeyu 0.5s linear;
+    }
+    .todo-leave-active {
+    animation: yeyu 0.5s linear reverse;
+    }
+
+    @keyframes yeyu {
+    from {
+    transform: translateX(100%);
+    }
+    to {
+    transform: translateX(0px);
+    }
+    }
 </style>

@@ -13,7 +13,7 @@
             title:''
           }
         },
-        props:['addtodos'],
+        // props:['addtodos'],
         methods: {
           add(){
             if(!this.title){
@@ -21,7 +21,8 @@
             }
             const todoobj = {id:nanoid(),title:this.title.trim(),done:false}
             console.log(todoobj);
-            this.addtodos(todoobj);
+            // this.addtodos(todoobj);
+            this.$emit('addtodos',todoobj)
             this.title="";
           },
         },

@@ -3,8 +3,8 @@
     <div id="root">
         <div class="todo-container">
             <div class="todo-wrap">
-                <TodoHeader :addtodos='addtodos' />
-                <TodoList :todos="todos" :checktodo="checktodo" :deleteTodo="deleteTodo"/>
+                <TodoHeader @addtodos='addtodos' />
+                <TodoList :todos="todos" :checktodo="checktodo" :deleteTodo="deleteTodo" :updatatodo="updatatodo"/>
                 <TodoFooter :todos="todos" :checkalltodo='checkalltodo' :cleanalltodo='cleanalltodo'/>
             </div>
         </div>
@@ -52,6 +52,13 @@ import TodoHeader from './components/Myheader.vue'
                     }
                 })
             },
+            updatatodo(id,title){
+                this.todos.map((todo)=>{
+                    if(todo.id === id){
+                        todo.title = title;
+                    }
+                })
+            },
             deleteTodo(id){
                 this.todos = this.todos.filter( todo => todo.id !== id )
             },
@@ -75,6 +82,9 @@ import TodoHeader from './components/Myheader.vue'
                 }
             }
         },
+        // mounted(todo,e){
+        //     this.$bus.$on('updatatodo',todo.id,e.target.value)
+        // }
     }
 // import HelloWorld from './components/HelloWorld.vue'
 // import propS from './components/pro_ps.vue'
@@ -118,6 +128,12 @@ import TodoHeader from './components/Myheader.vue'
     color: #fff;
     background-color: #da4f49;
     border: 1px solid #bd362f;
+    }
+    .btn-edit{
+    color: #fff;
+    background-color: #2977ca;
+    border: 1px solid #082a5b;
+    margin-right: 5px;
     }
 
     .btn-danger:hover {

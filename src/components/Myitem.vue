@@ -2,16 +2,18 @@
   <li>
     <label>
         <input type="checkbox" :checked='todo.done' @change="handlecheck(todo.id)"/>
-        <span>{{todo.title}}</span>
+        <span v-show="!todo.isedit">{{todo.title}}</span>
+        <input v-show="todo.isedit" type="text" :value="todo.title" @blur="handleblur(todo,$event)" ref="inputitle">
     </label>
     <button class="btn btn-danger" style="" @click="handleDelete(todo.id)">删除</button>
+    <button class="btn btn-edit" @click="handleupdata(todo)" v-show="!todo.isedit">编辑</button>
   </li>
 </template>  
 
 <script>
     export default {
         name:'TodoItem',
-        props: ['todo','checktodo','deleteTodo'],
+        props: ['todo','checktodo','deleteTodo','updatatodo'],
         methods: {
           handlecheck(id){
             this.checktodo(id)
@@ -20,7 +22,33 @@
             if(confirm('确定删除吗')){
               this.deleteTodo(id)
             }
-      }
+      },
+      handleupdata(todo){
+        // if(todo.hasOwnproperty('isedit')){
+        //     todo.isedit = true;
+        // }else{
+        //     this.$set(todo,'isedit',true);
+        //     console.log(todo)
+        // }
+        this.$set(todo,'isedit',true);
+        // setTimeout(() => {
+        //   this.$refs.inputitle.focus()
+        // }, 200);
+        todo.isedit = true;
+        this.$nextTick(function(){
+          this.$refs.inputitle.focus()
+        })
+          // todo.isedit = true;
+      },
+      handleblur(todo,e){
+        if(!e.target.value.trim()){
+            return alert("请输入非空格字符")
+        }
+        todo.isedit = false;
+        this.updatatodo(todo.id,e.target.value);
+        console.log(e.target.value);
+        // this.$bus.$emit('updatatodo',todo.id,e.target.value)
+      }   
         }
     }
 </script>
